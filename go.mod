@@ -1,4 +1,4 @@
-module billbliu/lebron
+module github.com/billbliu/lebron
 
 go 1.21.8
 

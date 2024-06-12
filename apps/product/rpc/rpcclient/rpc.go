@@ -6,7 +6,7 @@ package rpcclient
 import (
 	"context"
 
-	"billbliu/lebron/apps/product/rpc/rpc"
+	"github.com/billbliu/lebron/apps/product/rpc/rpc"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

@@ -1,6 +1,6 @@
 package svc
 
-import "billbliu/lebron/apps/order/rpc/internal/config"
+import "github.com/billbliu/lebron/apps/order/rpc/internal/config"
 
 type ServiceContext struct {
 	Config config.Config

@@ -3,9 +3,9 @@ package handler
 import (
 	"net/http"
 
-	"billbliu/lebron/apps/reply/admin/internal/logic"
-	"billbliu/lebron/apps/reply/admin/internal/svc"
-	"billbliu/lebron/apps/reply/admin/internal/types"
+	"github.com/billbliu/lebron/apps/reply/admin/internal/logic"
+	"github.com/billbliu/lebron/apps/reply/admin/internal/svc"
+	"github.com/billbliu/lebron/apps/reply/admin/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 

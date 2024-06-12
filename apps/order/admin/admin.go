@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"billbliu/lebron/apps/order/admin/internal/config"
-	"billbliu/lebron/apps/order/admin/internal/handler"
-	"billbliu/lebron/apps/order/admin/internal/svc"
+	"github.com/billbliu/lebron/apps/order/admin/internal/config"
+	"github.com/billbliu/lebron/apps/order/admin/internal/handler"
+	"github.com/billbliu/lebron/apps/order/admin/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"

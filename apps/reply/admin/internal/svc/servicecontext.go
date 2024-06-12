@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"billbliu/lebron/apps/reply/admin/internal/config"
+	"github.com/billbliu/lebron/apps/reply/admin/internal/config"
 )
 
 type ServiceContext struct {

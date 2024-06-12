@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"billbliu/lebron/apps/product/rpc/internal/config"
-	"billbliu/lebron/apps/product/rpc/internal/server"
-	"billbliu/lebron/apps/product/rpc/internal/svc"
-	"billbliu/lebron/apps/product/rpc/rpc"
+	"github.com/billbliu/lebron/apps/product/rpc/internal/config"
+	"github.com/billbliu/lebron/apps/product/rpc/internal/server"
+	"github.com/billbliu/lebron/apps/product/rpc/internal/svc"
+	"github.com/billbliu/lebron/apps/product/rpc/rpc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"

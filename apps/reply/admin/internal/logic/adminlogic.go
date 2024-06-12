@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 
-	"billbliu/lebron/apps/reply/admin/internal/svc"
-	"billbliu/lebron/apps/reply/admin/internal/types"
+	"github.com/billbliu/lebron/apps/reply/admin/internal/svc"
+	"github.com/billbliu/lebron/apps/reply/admin/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
