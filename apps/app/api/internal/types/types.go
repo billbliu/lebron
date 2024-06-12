@@ -57,6 +57,32 @@ type Image struct {
 	URL string `json:"url"`
 }
 
+type Order struct {
+	OrderID            string  `json:"order_id"`
+	Status             int32   `json:"status"`
+	Quantity           int64   `json:"quantity"`
+	Payment            float64 `json:"payment"`
+	TotalPrice         float64 `json:"total_price"`
+	CreateTime         int64   `json:"create_time"`
+	ProductID          int64   `json:"product_id"`
+	ProductName        string  `json:"product_name"`
+	ProductImage       string  `json:"product_image"`
+	ProductDescription string  `json:"product_description"`
+}
+
+type OrderListRequest struct {
+	UID    int64 `form:"uid"`
+	Status int32 `form:"status,optional"`
+	Cursor int64 `form:"cursor,optional"`
+	Ps     int64 `form:"ps,default=20"`
+}
+
+type OrderListResponse struct {
+	Orders    []*Order `json:"orders"`
+	IsEnd     bool     `json:"is_end"` // 是否最后一页
+	OrderTime int64    `json:"order_time"`
+}
+
 type Product struct {
 	ID          int64    `json:"id"`          // 商品ID
 	Name        string   `json:"name"`        // 产品名称
@@ -80,6 +106,15 @@ type ProductCommentResponse struct {
 	Comments    []*Comment `json:"comments"`
 	IsEnd       bool       `json:"is_end"`       // 是否最后一页
 	CommentTime int64      `json:"comment_time"` // 评论列表最后一个评论的时间
+}
+
+type ProductDetailRequest struct {
+	ProductID int64 `form:"product_id"`
+}
+
+type ProductDetailResponse struct {
+	Product  *Product   `json:"product"`
+	Comments []*Comment `json:"comments"`
 }
 
 type RecommendRequest struct {

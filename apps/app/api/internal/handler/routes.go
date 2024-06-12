@@ -37,10 +37,22 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: HomeBannerHandler(serverCtx),
 			},
 			{
+				// 订单列表
+				Method:  http.MethodGet,
+				Path:    "/v1/order/list",
+				Handler: OrderListHandler(serverCtx),
+			},
+			{
 				// 商品评论列表
 				Method:  http.MethodGet,
 				Path:    "/v1/product/comment",
 				Handler: ProductCommentHandler(serverCtx),
+			},
+			{
+				// 商品详情
+				Method:  http.MethodGet,
+				Path:    "/v1/product/detail",
+				Handler: ProductDetailHandler(serverCtx),
 			},
 			{
 				// 推荐商品列表

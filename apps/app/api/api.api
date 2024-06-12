@@ -83,6 +83,36 @@ type (
 		ID  int64  `json:"id"`
 		URL string `json:"url"`
 	}
+	OrderListRequest {
+		UID    int64 `form:"uid"`
+		Status int32 `form:"status,optional"`
+		Cursor int64 `form:"cursor,optional"`
+		Ps     int64 `form:"ps,default=20"`
+	}
+	OrderListResponse {
+		Orders    []*Order `json:"orders"`
+		IsEnd     bool     `json:"is_end"` // 是否最后一页
+		OrderTime int64    `json:"order_time"`
+	}
+	Order {
+		OrderID            string  `json:"order_id"`
+		Status             int32   `json:"status"`
+		Quantity           int64   `json:"quantity"`
+		Payment            float64 `json:"payment"`
+		TotalPrice         float64 `json:"total_price"`
+		CreateTime         int64   `json:"create_time"`
+		ProductID          int64   `json:"product_id"`
+		ProductName        string  `json:"product_name"`
+		ProductImage       string  `json:"product_image"`
+		ProductDescription string  `json:"product_description"`
+	}
+	ProductDetailRequest {
+		ProductID int64 `form:"product_id"`
+	}
+	ProductDetailResponse {
+		Product  *Product   `json:"product"`
+		Comments []*Comment `json:"comments"`
+	}
 )
 
 service api-api {
@@ -109,5 +139,13 @@ service api-api {
 	@doc "商品评论列表"
 	@handler ProductCommentHandler
 	get /v1/product/comment (ProductCommentRequest) returns (ProductCommentResponse)
+
+	@doc "订单列表"
+	@handler OrderListHandler
+	get /v1/order/list (OrderListRequest) returns (OrderListResponse)
+
+	@doc "商品详情"
+	@handler ProductDetailHandler
+	get /v1/product/detail (ProductDetailRequest) returns (ProductDetailResponse)
 }
 

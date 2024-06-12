@@ -12,7 +12,7 @@ message ProductRequest {
 }
 
 message ProductResponse {
-  repeated ProductItem products = 1;
+	map<int64, ProductItem> products = 1;
 }
 
 message ProductItem {
@@ -20,4 +20,9 @@ message ProductItem {
   string name = 2;
   string description = 3;
   string image_url = 4;
+  int64 create_time = 5;
+  int64 stock = 6;
+  int64 cateid = 7;
+  double price = 8;
+  int64 status = 9;
 }
