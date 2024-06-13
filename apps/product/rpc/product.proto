@@ -6,6 +6,7 @@ option go_package="./product";
 service Product {
   rpc Product(ProductItemRequest) returns (ProductItem) ;
   rpc Products(ProductRequest) returns(ProductResponse);
+  rpc ProductList(ProductListRequest) returns(ProductListResponse);
 }
 
 message ProductItemRequest {
@@ -30,4 +31,18 @@ message ProductItem {
   int64 cateid = 7;
   double price = 8;
   int64 status = 9;
+}
+
+message ProductListRequest {
+  int32 category_id = 1;
+  int64 cursor = 2;
+  int32 ps = 3;
+  int64 product_id = 4;
+}
+
+message ProductListResponse {
+  bool is_end = 1;
+  int64 timestamp = 2;
+  int64 product_id = 3;
+  repeated ProductItem products = 4;
 }

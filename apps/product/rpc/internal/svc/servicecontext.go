@@ -3,6 +3,7 @@ package svc
 import (
 	"github.com/billbliu/lebron/apps/product/rpc/internal/config"
 	"github.com/billbliu/lebron/apps/product/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"golang.org/x/sync/singleflight"
 )
@@ -13,6 +14,8 @@ type ServiceContext struct {
 	CategoryModel  model.CategoryModel
 	OperationModel model.ProductOperationModel
 	SingleGroup    singleflight.Group
+	// 业务缓存Redis客户端
+	BizRedis *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -22,5 +25,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		ProductModel:   model.NewProductModel(conn, c.CacheRedis),
 		CategoryModel:  model.NewCategoryModel(conn, c.CacheRedis),
 		OperationModel: model.NewProductOperationModel(conn, c.CacheRedis),
+		BizRedis:       redis.New(c.BizRedis.Host, redis.WithPass(c.BizRedis.Pass)),
 	}
 }
