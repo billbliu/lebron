@@ -1,13 +1,26 @@
 package svc
 
-import "github.com/billbliu/lebron/apps/product/rpc/internal/config"
+import (
+	"github.com/billbliu/lebron/apps/product/rpc/internal/config"
+	"github.com/billbliu/lebron/apps/product/rpc/internal/model"
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"golang.org/x/sync/singleflight"
+)
 
 type ServiceContext struct {
-	Config config.Config
+	Config         config.Config
+	ProductModel   model.ProductModel
+	CategoryModel  model.CategoryModel
+	OperationModel model.ProductOperationModel
+	SingleGroup    singleflight.Group
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
+	conn := sqlx.NewMysql(c.DataSource)
 	return &ServiceContext{
-		Config: c,
+		Config:         c,
+		ProductModel:   model.NewProductModel(conn),
+		CategoryModel:  model.NewCategoryModel(conn),
+		OperationModel: model.NewProductOperationModel(conn),
 	}
 }
