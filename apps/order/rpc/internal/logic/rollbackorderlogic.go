@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/billbliu/lebron/apps/order/rpc/internal/svc"
 	"github.com/billbliu/lebron/apps/order/rpc/order"
@@ -24,7 +25,6 @@ func NewRollbackOrderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Rol
 }
 
 func (l *RollbackOrderLogic) RollbackOrder(in *order.CreateOrderRequest) (*order.CreateOrderResponse, error) {
-	// todo: add your logic here and delete this line
-
+	fmt.Printf("RollbackOrder: %+v\n", in)
 	return &order.CreateOrderResponse{}, nil
 }

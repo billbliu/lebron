@@ -5,6 +5,7 @@ go 1.21.8
 require (
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/dtm-labs/dtmcli v1.14.2
 	github.com/dtm-labs/dtmgrpc v1.14.2
 	github.com/jinzhu/copier v0.4.0
