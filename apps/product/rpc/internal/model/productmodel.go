@@ -2,6 +2,7 @@ package model
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -16,6 +17,8 @@ type (
 	ProductModel interface {
 		productModel
 		CategoryProducts(ctx context.Context, ctime string, cateid, limit int64) ([]*Product, error)
+		UpdateProductStock(ctx context.Context, pid, num int64) error
+		TxUpdateStock(tx *sql.Tx, id int64, delta int) (sql.Result, error)
 	}
 
 	customProductModel struct {
@@ -37,4 +40,20 @@ func (m *customProductModel) CategoryProducts(ctx context.Context, ctime string,
 		return nil, err
 	}
 	return products, nil
+}
+
+func (m *customProductModel) UpdateProductStock(ctx context.Context, pid, num int64) error {
+	productProductIdKey := fmt.Sprintf("%s%v", cacheProductProductIdPrefix, pid)
+	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (sql.Result, error) {
+		return conn.ExecCtx(ctx, fmt.Sprintf("UPDATE %s SET stock = stock - ? WHERE id = ? and stock > 0", m.table), num, pid)
+	}, productProductIdKey)
+	return err
+}
+
+func (m *customProductModel) TxUpdateStock(tx *sql.Tx, id int64, delta int) (sql.Result, error) {
+	productIdKey := fmt.Sprintf("%s%v", cacheProductProductIdPrefix, id)
+	return m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
+		query := fmt.Sprintf("update %s set stock = stock + ? where stock >= -? and id=?", m.table)
+		return tx.Exec(query, delta, delta, id)
+	}, productIdKey)
 }

@@ -41,3 +41,33 @@ func (s *ProductServer) OperationProducts(ctx context.Context, in *product.Opera
 	l := logic.NewOperationProductsLogic(ctx, s.svcCtx)
 	return l.OperationProducts(in)
 }
+
+func (s *ProductServer) UpdateProductStock(ctx context.Context, in *product.UpdateProductStockRequest) (*product.UpdateProductStockResponse, error) {
+	l := logic.NewUpdateProductStockLogic(ctx, s.svcCtx)
+	return l.UpdateProductStock(in)
+}
+
+func (s *ProductServer) CheckAndUpdateStock(ctx context.Context, in *product.CheckAndUpdateStockRequest) (*product.CheckAndUpdateStockResponse, error) {
+	l := logic.NewCheckAndUpdateStockLogic(ctx, s.svcCtx)
+	return l.CheckAndUpdateStock(in)
+}
+
+func (s *ProductServer) CheckProductStock(ctx context.Context, in *product.UpdateProductStockRequest) (*product.UpdateProductStockResponse, error) {
+	l := logic.NewCheckProductStockLogic(ctx, s.svcCtx)
+	return l.CheckProductStock(in)
+}
+
+func (s *ProductServer) RollbackProductStock(ctx context.Context, in *product.UpdateProductStockRequest) (*product.UpdateProductStockResponse, error) {
+	l := logic.NewRollbackProductStockLogic(ctx, s.svcCtx)
+	return l.RollbackProductStock(in)
+}
+
+func (s *ProductServer) DecrStock(ctx context.Context, in *product.DecrStockRequest) (*product.DecrStockResponse, error) {
+	l := logic.NewDecrStockLogic(ctx, s.svcCtx)
+	return l.DecrStock(in)
+}
+
+func (s *ProductServer) DecrStockRevert(ctx context.Context, in *product.DecrStockRequest) (*product.DecrStockResponse, error) {
+	l := logic.NewDecrStockRevertLogic(ctx, s.svcCtx)
+	return l.DecrStockRevert(in)
+}

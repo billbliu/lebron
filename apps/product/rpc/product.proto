@@ -8,6 +8,12 @@ service Product {
   rpc Products(ProductRequest) returns(ProductResponse);
   rpc ProductList(ProductListRequest) returns(ProductListResponse);
   rpc OperationProducts(OperationProductsRequest) returns (OperationProductsResponse);
+  rpc UpdateProductStock(UpdateProductStockRequest) returns (UpdateProductStockResponse);
+  rpc CheckAndUpdateStock(CheckAndUpdateStockRequest) returns (CheckAndUpdateStockResponse);
+  rpc CheckProductStock(UpdateProductStockRequest) returns (UpdateProductStockResponse);
+  rpc RollbackProductStock(UpdateProductStockRequest) returns (UpdateProductStockResponse);
+  rpc DecrStock(DecrStockRequest) returns(DecrStockResponse);
+  rpc DecrStockRevert(DecrStockRequest) returns(DecrStockResponse);
 }
 
 message ProductItemRequest {
@@ -53,4 +59,27 @@ message OperationProductsRequest {
 
 message OperationProductsResponse {
   repeated ProductItem products = 1;
+}
+
+message UpdateProductStockRequest {
+  int64 product_id = 1;
+  int64 num = 2;
+}
+
+message UpdateProductStockResponse {
+}
+
+message CheckAndUpdateStockRequest {
+  int64 product_id = 1;
+}
+
+message CheckAndUpdateStockResponse {
+}
+
+message DecrStockRequest {
+  int64 id = 1;
+  int64 num = 2;
+}
+
+message DecrStockResponse {
 }
