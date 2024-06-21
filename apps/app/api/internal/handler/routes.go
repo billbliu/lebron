@@ -4,6 +4,8 @@ package handler
 import (
 	"net/http"
 
+	order "github.com/billbliu/lebron/apps/app/api/internal/handler/order"
+	user "github.com/billbliu/lebron/apps/app/api/internal/handler/user"
 	"github.com/billbliu/lebron/apps/app/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -61,5 +63,85 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: RecommendHandler(serverCtx),
 			},
 		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// add order
+				Method:  http.MethodPost,
+				Path:    "/add",
+				Handler: order.AddOrderHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/v1/order"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// login
+				Method:  http.MethodPost,
+				Path:    "/login",
+				Handler: user.LoginHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/v1/user"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				// add user collection
+				Method:  http.MethodPost,
+				Path:    "/addCollection",
+				Handler: user.UserCollectionAddHandler(serverCtx),
+			},
+			{
+				// add user receiveAddress
+				Method:  http.MethodPost,
+				Path:    "/addReceiveAddress",
+				Handler: user.AddReceiveAddressHandler(serverCtx),
+			},
+			{
+				// del user collection
+				Method:  http.MethodPost,
+				Path:    "/delCollection",
+				Handler: user.UserCollectionDelHandler(serverCtx),
+			},
+			{
+				// del user receiveAddress list
+				Method:  http.MethodPost,
+				Path:    "/delReceiveAddress",
+				Handler: user.DelReceiveAddressHandler(serverCtx),
+			},
+			{
+				// edit user receiveAddress
+				Method:  http.MethodPost,
+				Path:    "/editReceiveAddress",
+				Handler: user.EditReceiveAddressHandler(serverCtx),
+			},
+			{
+				// get user collection list
+				Method:  http.MethodGet,
+				Path:    "/getCollectionList",
+				Handler: user.UserCollectionListHandler(serverCtx),
+			},
+			{
+				// get user receiveAddress list
+				Method:  http.MethodGet,
+				Path:    "/getReceiveAddressList",
+				Handler: user.UserReceiveAddressListHandler(serverCtx),
+			},
+			{
+				// get user info
+				Method:  http.MethodPost,
+				Path:    "/info",
+				Handler: user.DetailHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+		rest.WithPrefix("/v1/user"),
 	)
 }

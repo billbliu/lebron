@@ -57,6 +57,16 @@ type Image struct {
 	URL string `json:"url"`
 }
 
+type LoginReq struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type LoginResp struct {
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+}
+
 type Order struct {
 	OrderID            string  `json:"order_id"`
 	Status             int32   `json:"status"`
@@ -70,6 +80,24 @@ type Order struct {
 	ProductDescription string  `json:"product_description"`
 }
 
+type OrderAddReq struct {
+	ReceiveAddressId int64 `json:"receiveAddressId"` //用户收货地址表id
+	Postage          int64 `json:"postage"`          //运费,单位是元
+	Productid        int64 `json:"productid"`        //商品id
+	Quantity         int64 `json:"quantity"`         //商品数量
+}
+
+type OrderAddResp struct {
+	Id string `json:"id"` //订单id
+}
+
+type OrderInfoReq struct {
+}
+
+type OrderInfoResp struct {
+	OrderInfo Orders `json:"orderInfo"`
+}
+
 type OrderListRequest struct {
 	UID    int64 `form:"uid"`
 	Status int32 `form:"status,optional"`
@@ -81,6 +109,18 @@ type OrderListResponse struct {
 	Orders    []*Order `json:"orders"`
 	IsEnd     bool     `json:"is_end"` // 是否最后一页
 	OrderTime int64    `json:"order_time"`
+}
+
+type Orders struct {
+	Id          string  `json:"id"`          //订单id
+	Userid      uint64  `json:"userid"`      //用户id
+	Shoppingid  int64   `json:"shoppingid"`  //收货信息表id
+	Payment     float64 `json:"payment"`     //实际付款金额,单位是元,保留两位小数
+	Paymenttype int8    `json:"paymenttype"` //支付类型,1-在线支付
+	Postage     int     `json:"postage"`     //运费,单位是元
+	Status      int16   `json:"status"`      //订单状态:0-已取消-10-未付款，20-已付款，30-待发货 40-待收货，50-交易成功，60-交易关闭
+	CreateTime  int64   `json:"create_time"` //创建时间
+	UpdateTime  int64   `json:"update_time"` //更新时间
 }
 
 type Product struct {
@@ -132,4 +172,102 @@ type User struct {
 	ID     int64  `json:"id"`     // 用户ID
 	Name   string `json:"name"`   // 用户名
 	Avatar string `json:"avatar"` // 头像
+}
+
+type UserCollectionAddReq struct {
+	ProductId int64 `json:"product_id"` // 商品id
+}
+
+type UserCollectionAddRes struct {
+}
+
+type UserCollectionDelReq struct {
+	Id int64 `json:"id"` // 收藏Id
+}
+
+type UserCollectionDelRes struct {
+}
+
+type UserCollectionListReq struct {
+}
+
+type UserCollectionListRes struct {
+	ProductId []int64 `json:"product_id"` // 商品id
+}
+
+type UserInfo struct {
+	Id         uint64 `json:"id"`          //用户ID
+	Username   string `json:"username"`    //用户名
+	Password   string `json:"password"`    //用户密码，MD5加密
+	Phone      string `json:"phone"`       //手机号
+	Question   string `json:"question"`    //找回密码问题
+	Answer     string `json:"answer"`      //找回密码答案
+	CreateTime int64  `json:"create_time"` //创建时间
+	UpdateTime int64  `json:"update_time"` //更新时间
+}
+
+type UserInfoReq struct {
+}
+
+type UserInfoResp struct {
+	UserInfo UserInfo `json:"userInfo"`
+}
+
+type UserReceiveAddress struct {
+	Id            int64  `json:"id"`
+	Uid           uint64 `json:"uid"`            //用户id
+	Name          string `json:"name"`           //收货人名称
+	Phone         string `json:"phone"`          //手机号
+	IsDefault     int32  `json:"is_default"`     //是否为默认地址
+	PostCode      string `json:"post_code"`      //邮政编码
+	Province      string `json:"province"`       //省份/直辖市
+	City          string `json:"city"`           //城市
+	Region        string `json:"region"`         //区
+	DetailAddress string `json:"detail_address"` //详细地址(街道)
+	IsDelete      int32  `json:"is_delete"`      //是否删除
+	CreateTime    int64  `json:"create_time"`    //数据创建时间[禁止在代码中赋值]
+	UpdateTime    int64  `json:"update_time"`    //数据更新时间[禁止在代码中赋值]
+}
+
+type UserReceiveAddressAddReq struct {
+	Name          string `json:"name"`           //收货人名称
+	Phone         string `json:"phone"`          //手机号
+	IsDefault     int32  `json:"is_default"`     //是否为默认地址
+	PostCode      string `json:"post_code"`      //邮政编码
+	Province      string `json:"province"`       //省份/直辖市
+	City          string `json:"city"`           //城市
+	Region        string `json:"region"`         //区
+	DetailAddress string `json:"detail_address"` //详细地址(街道)
+}
+
+type UserReceiveAddressAddRes struct {
+}
+
+type UserReceiveAddressDelReq struct {
+	Id int64 `json:"id"`
+}
+
+type UserReceiveAddressDelRes struct {
+}
+
+type UserReceiveAddressEditReq struct {
+	Id            int64  `json:"id"`
+	Name          string `json:"name"`           //收货人名称
+	Phone         string `json:"phone"`          //手机号
+	IsDefault     int32  `json:"is_default"`     //是否为默认地址
+	PostCode      string `json:"post_code"`      //邮政编码
+	Province      string `json:"province"`       //省份/直辖市
+	City          string `json:"city"`           //城市
+	Region        string `json:"region"`         //区
+	DetailAddress string `json:"detail_address"` //详细地址(街道)
+}
+
+type UserReceiveAddressEditRes struct {
+}
+
+type UserReceiveAddressListReq struct {
+}
+
+type UserReceiveAddressListRes struct {
+	List []UserReceiveAddress `json:"list"`
 }

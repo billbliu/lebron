@@ -9,6 +9,7 @@ import (
 	"github.com/billbliu/lebron/apps/app/api/internal/types"
 	"github.com/billbliu/lebron/apps/order/rpc/order"
 	"github.com/billbliu/lebron/apps/product/rpc/product"
+	"github.com/billbliu/lebron/pkg/otel"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -29,6 +30,10 @@ func NewOrderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OrderLi
 }
 
 func (l *OrderListLogic) OrderList(req *types.OrderListRequest) (resp *types.OrderListResponse, err error) {
+	ctx, span := otel.StartSpan(l.ctx, "Custom.BFF.OrderList")
+	defer span.End()
+
+	l.ctx = ctx
 	orderRes, err := l.svcCtx.OrderRPC.Orders(l.ctx, &order.OrdersRequest{UserId: req.UID})
 	if err != nil {
 		return nil, err
